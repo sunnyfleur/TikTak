@@ -23,10 +23,12 @@
         <activity
             android:name=".HomeActivity"
             android:exported="false"
+            android:screenOrientation="nosensor"
             />
         <activity
             android:name=".MainActivity"
             android:exported="true"
+            android:screenOrientation="nosensor"
             >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

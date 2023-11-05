@@ -235,7 +235,6 @@ public class VideoPlayerRecyclerView extends RecyclerView {
     }
     public void playVideo(boolean isEndOfList){
         int targetPosition  ;
-        //mediaObjects = MediaData.generateMediaData();
 
         if (!isEndOfList){
             int startPosition = ((LinearLayoutManager) getLayoutManager()).findFirstVisibleItemPosition();
@@ -304,7 +303,7 @@ public class VideoPlayerRecyclerView extends RecyclerView {
         DataSource.Factory dataSourceFactory = new DefaultDataSourceFactory(context, Util.getUserAgent(context," RecyclerView VideoPlayer"));
         String mediaUrl = mediaObjects.get(targetPosition).getMedia_url();
         if (mediaUrl != null){
-            MediaSource videoSource = new ExtractorMediaSource.Factory(dataSourceFactory).createMediaSource(Uri.parse(mediaUrl));
+            MediaSource videoSource = new ProgressiveMediaSource.Factory(dataSourceFactory).createMediaSource(Uri.parse(mediaUrl));
             videoPlayer.prepare(videoSource);
             videoPlayer.setPlayWhenReady(true);
         }
@@ -413,20 +412,5 @@ public class VideoPlayerRecyclerView extends RecyclerView {
     }
     public void setMediaObjects(ArrayList<MediaObject> mediaObjects){
         this.mediaObjects = mediaObjects;
-    }
-    public VideoPlayerRecyclerView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-    }
-
-    @Override
-    protected void onAttachedToWindow() {
-        super.onAttachedToWindow();
-        playVideo(false);
-    }
-
-    @Override
-    protected void onDetachedFromWindow() {
-        super.onDetachedFromWindow();
-        releasePlayer();
     }
 }

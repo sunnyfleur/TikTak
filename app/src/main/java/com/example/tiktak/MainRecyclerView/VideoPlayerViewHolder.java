@@ -21,7 +21,6 @@ public class VideoPlayerViewHolder extends RecyclerView.ViewHolder {
     ProgressBar progressBar;
     View parent;
     RequestManager requestManager;
-    //VideoPlayerRecyclerView recyclerView;
 
     public VideoPlayerViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -33,7 +32,6 @@ public class VideoPlayerViewHolder extends RecyclerView.ViewHolder {
         progressBar = itemView.findViewById(R.id.progressBar);
         volumeControl = itemView.findViewById(R.id.volume_up);
         user_id = itemView.findViewById(R.id.user_name);
-        //recyclerView = itemView.findViewById(R.id.recyclerview);
     }
     public void onBind(MediaObject mediaObject,RequestManager requestManager){
         this.requestManager = requestManager;

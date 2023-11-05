@@ -66,26 +66,25 @@ public class HomeActivity extends AppCompatActivity {
         recyclerView = (VideoPlayerRecyclerView)findViewById(R.id.recyclerview);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(RecyclerView.VERTICAL);
+        recyclerView.setLayoutManager(layoutManager);
+
         layoutManager.setReverseLayout(true);
         layoutManager.setStackFromEnd(true);
-
-
         VerticalSpacingItemDecorator itemDecorator = new VerticalSpacingItemDecorator(0);
         recyclerView.addItemDecoration(itemDecorator);
-        recyclerView.setLayoutManager(layoutManager);
+
         ///////////////////////////////////////////////////////
         SnapHelper mSnapHelper = new PagerSnapHelper();
         mSnapHelper.attachToRecyclerView(recyclerView);
         ///////////////////////////////////////////////////////
-        mediaObjectList =  MediaData.generateMediaData();
         LoadAdapter();
 
     }
     private void LoadAdapter(){
-
+        mediaObjectList =  MediaData.generateMediaData();
         recyclerView.setMediaObjects(mediaObjectList);
 
-        VideoPlayerRecyclerAdapter adapter = new VideoPlayerRecyclerAdapter(mediaObjectList,initGlide());
+        VideoPlayerRecyclerAdapter adapter = new VideoPlayerRecyclerAdapter(mediaObjectList,getApplicationContext(),initGlide());
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
         recyclerView.setKeepScreenOn(true);
@@ -101,7 +100,7 @@ public class HomeActivity extends AppCompatActivity {
                     mediaObjectList = (ArrayList<MediaObject>) response.body().getAllPosts();
 
                     recyclerView.setMediaObjects(mediaObjectList);
-                    VideoPlayerRecyclerAdapter adapter = new VideoPlayerRecyclerAdapter(mediaObjectList,initGlide());
+                    VideoPlayerRecyclerAdapter adapter = new VideoPlayerRecyclerAdapter(mediaObjectList,getApplicationContext(),initGlide());
                     recyclerView.setAdapter(adapter);
                     adapter.notifyDataSetChanged();
                     recyclerView.setKeepScreenOn(true);

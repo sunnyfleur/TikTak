@@ -16,10 +16,12 @@ import java.util.ArrayList;
 
 public class VideoPlayerRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private ArrayList<MediaObject> mediaObjects;
+    private Context context;
     private RequestManager requestManager;
 
-    public VideoPlayerRecyclerAdapter(ArrayList<MediaObject> mediaObjects, RequestManager requestManager) {
+    public VideoPlayerRecyclerAdapter(ArrayList<MediaObject> mediaObjects, Context context,RequestManager requestManager) {
         this.mediaObjects = mediaObjects;
+        this.context = context;
         this.requestManager = requestManager;
     }
 

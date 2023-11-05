@@ -3,13 +3,13 @@ package com.example.tiktak.Responses;
 import com.example.tiktak.Models.MediaObject;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class Users {
-    @SerializedName("ALL_FILES")
-    private List<MediaObject> AllPosts;
+    @SerializedName("ALL_POSTS")
+    private ArrayList<MediaObject> AllPosts;
 
-    public List<MediaObject> getAllPosts() {
+    public ArrayList<MediaObject> getAllPosts() {
         return AllPosts;
     }
 }
