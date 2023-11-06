@@ -22,6 +22,7 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.example.tiktak.Models.MediaData;
 import com.example.tiktak.Models.MediaObject;
@@ -60,7 +61,7 @@ public class VideoPlayerRecyclerView extends RecyclerView {
     private enum VolumeState{ON,OFF};
 
     //////UI
-    private ImageView thumbnail,volumeControl;
+    private ImageView thumbnail,volumeControl,soundDisc;
     private ProgressBar progressBar;
     private View viewHolderParent;
     private FrameLayout frameLayout;
@@ -289,12 +290,15 @@ public class VideoPlayerRecyclerView extends RecyclerView {
             return;
         }
 
+        soundDisc = holder.soundDisc;
         thumbnail = holder.thumbnail;
         progressBar = holder.progressBar;
         volumeControl = holder.volumeControl;
         viewHolderParent = holder.itemView;
         requestManager = holder.requestManager;
         frameLayout = holder.itemView.findViewById(R.id.media_container);
+
+        Glide.with(context).load(R.drawable.vinyl).into(soundDisc);
 
         ///////////////////////////////////////////////////
         videoSurfaceView.setPlayer(videoPlayer);

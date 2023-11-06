@@ -32,17 +32,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>
 
-            <ImageView
-                android:id="@+id/volume_up"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_marginTop="32dp"
-                android:layout_marginEnd="16dp"
-                android:alpha="0"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/volume_up" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
     </FrameLayout>
 
@@ -163,13 +152,34 @@
         android:id="@+id/progressBar"
         style="@style/Widget.AppCompat.ProgressBar.Horizontal"
         android:layout_width="0dp"
-        android:layout_height="0.7dp"
-        android:layout_marginTop="12dp"
-        android:progressBackgroundTint="@color/white"
-        android:progressTint="#FFEB3B"
+        android:layout_height="1.2dp"
+        android:layout_marginTop="18dp"
+        android:indeterminate="true"
+        android:progressTint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgv_disc">
-    </ProgressBar>
+        app:layout_constraintTop_toBottomOf="@+id/imgv_disc"/>
+
+
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="409dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgv_disc" />
+
+    <ImageView
+        android:id="@+id/volume_up"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
+        android:alpha="0"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/volume_up" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

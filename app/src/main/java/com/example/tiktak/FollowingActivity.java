@@ -37,18 +37,17 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class HomeActivity extends AppCompatActivity {
+public class FollowingActivity extends AppCompatActivity {
 
     private ArrayList<MediaObject> mediaObjectList = new ArrayList<>();
     private VideoPlayerRecyclerView recyclerView;
-    public static ApiInterface apiInterface;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.activity_following);
 
-        apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
         init();
     }
     private void init(){
@@ -92,32 +91,9 @@ public class HomeActivity extends AppCompatActivity {
         recyclerView.setKeepScreenOn(true);
         recyclerView.smoothScrollToPosition(mediaObjectList.size()+1);
     }
-    private void LoadAllPosts() {
-        Call<Users> call = apiInterface.performAllPosts();
-        call.enqueue(new Callback<Users>() {
-            @Override
-            public void onResponse(Call<Users> call, Response<Users> response) {
-                if (response.isSuccessful()){
-                    mediaObjectList = (ArrayList<MediaObject>) response.body().getAllPosts();
 
-                    recyclerView.setMediaObjects(mediaObjectList);
-                    VideoPlayerRecyclerAdapter adapter = new VideoPlayerRecyclerAdapter(mediaObjectList,getApplicationContext(),initGlide());
-                    recyclerView.setAdapter(adapter);
-                    adapter.notifyDataSetChanged();
-                    recyclerView.setKeepScreenOn(true);
-                    recyclerView.smoothScrollToPosition(mediaObjectList.size()+1);
-                }
-                else {
-                    Toast.makeText(HomeActivity.this,"Network Error.",Toast.LENGTH_SHORT).show();
-                }
-            }
 
-            @Override
-            public void onFailure(Call<Users> call, Throwable t) {
-                Toast.makeText(HomeActivity.this,"Network Error.", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
+
     public  static void setWindowFlag(@NotNull Activity activity, final int bits, boolean on){
         Window win = activity.getWindow();
         WindowManager.LayoutParams winParams = win.getAttributes();
@@ -128,6 +104,7 @@ public class HomeActivity extends AppCompatActivity {
         }
         win.setAttributes(winParams);
     }
+
     private RequestManager initGlide(){
         RequestOptions options = new RequestOptions().placeholder(R.color.colorDarkGrey).error(R.color.colorRed);
         return Glide.with(this).setDefaultRequestOptions(options);
@@ -139,6 +116,7 @@ public class HomeActivity extends AppCompatActivity {
         }
         super.onDestroy();
     }
+
     @Override
     protected void onStop() {
         super.onStop();
@@ -152,11 +130,11 @@ public class HomeActivity extends AppCompatActivity {
         super.onBackPressed();
         finish();
     }
-    public void followingBtn(View view){
-        Intent intent = new Intent(HomeActivity.this,FollowingActivity.class);
+    public void foryouBtn(View view){
+        Intent intent = new Intent(FollowingActivity.this,HomeActivity.class);
         startActivity(intent);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        Animatoo.animateSwipeRight(this);
+        Animatoo.animateSwipeLeft(this);
         finish();
     }
 }
