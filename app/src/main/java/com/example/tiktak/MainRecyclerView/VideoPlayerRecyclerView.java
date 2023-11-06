@@ -67,6 +67,7 @@ public class VideoPlayerRecyclerView extends RecyclerView {
     private FrameLayout frameLayout;
     private PlayerView videoSurfaceView;
     private SimpleExoPlayer videoPlayer;
+    TextView musicName, description, username;
 
     //////Vars
     private ArrayList<MediaObject> mediaObjects = new ArrayList<>();
@@ -297,6 +298,9 @@ public class VideoPlayerRecyclerView extends RecyclerView {
         viewHolderParent = holder.itemView;
         requestManager = holder.requestManager;
         frameLayout = holder.itemView.findViewById(R.id.media_container);
+        musicName = holder.music_name;
+        username = holder.user_name;
+        description = holder.description;
 
         Glide.with(context).load(R.drawable.vinyl).into(soundDisc);
 

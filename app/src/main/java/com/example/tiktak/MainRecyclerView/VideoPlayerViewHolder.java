@@ -16,7 +16,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class VideoPlayerViewHolder extends RecyclerView.ViewHolder {
     FrameLayout media_container;
-    TextView title, user_id;
+    TextView description, user_name,music_name;
     ImageView thumbnail, volumeControl,soundDisc,likeBtn;
     ProgressBar progressBar;
     View parent;
@@ -29,17 +29,20 @@ public class VideoPlayerViewHolder extends RecyclerView.ViewHolder {
         parent = itemView;
         media_container = itemView.findViewById(R.id.media_container);
         thumbnail = itemView.findViewById(R.id.thumbnail);
-        title = itemView.findViewById(R.id.title);
+        description = itemView.findViewById(R.id.title);
         progressBar = itemView.findViewById(R.id.progressBar);
         volumeControl = itemView.findViewById(R.id.volume_up);
-        user_id = itemView.findViewById(R.id.user_name);
+        user_name = itemView.findViewById(R.id.user_name);
         soundDisc = itemView.findViewById(R.id.imgv_disc);
         likeBtn = itemView.findViewById(R.id.like);
+        music_name = itemView.findViewById(R.id.music_name);
     }
     public void onBind(MediaObject mediaObject,RequestManager requestManager){
         this.requestManager = requestManager;
         parent.setTag(this);
-        title.setText(mediaObject.getDescription()+",\n"+mediaObject.getDate());
+        description.setText(mediaObject.getDescription()+",\n"+mediaObject.getDate());
+        user_name.setText(mediaObject.getUser_name());
+        music_name.setText(mediaObject.getPost_categories());
         likeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
