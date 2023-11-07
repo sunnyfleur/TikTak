@@ -82,6 +82,9 @@ public class HomeActivity extends AppCompatActivity {
         LoadAdapter();
 
     }
+
+
+
     private void LoadAdapter(){
         mediaObjectList =  MediaData.generateMediaData();
         recyclerView.setMediaObjects(mediaObjectList);

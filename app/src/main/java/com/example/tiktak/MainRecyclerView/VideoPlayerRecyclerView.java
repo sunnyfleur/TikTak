@@ -1,6 +1,7 @@
 package com.example.tiktak.MainRecyclerView;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.net.Uri;
 import android.se.omapi.Session;
@@ -57,6 +58,10 @@ import java.util.ArrayList;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class VideoPlayerRecyclerView extends RecyclerView {
+
+
+    private static final String PREF_LAST_PLAYED_POSITION = "last_played_position";
+    private SharedPreferences sharedPreferences;
     private static final String TAG = "VideoPlayerRecyclerView";
     private enum VolumeState{ON,OFF};
 
@@ -74,7 +79,7 @@ public class VideoPlayerRecyclerView extends RecyclerView {
     private int videoSurfaceDefaultHeight = 0;
     private int screenDefaultHeight = 0;
     private Context context;
-    private int playPosition = -1;
+    public int playPosition = -1;
     private boolean isVideoViewAdded;
     private RequestManager requestManager;
     private CircleImageView profileBtn;
@@ -85,6 +90,10 @@ public class VideoPlayerRecyclerView extends RecyclerView {
     public VideoPlayerRecyclerView(@NonNull Context context) {
         super(context);
         init(context);
+
+//        if (lastPlayedPosition != -1) {
+//            playVideo(false);
+//        }
     }
 
     public VideoPlayerRecyclerView(@NonNull Context context, @Nullable AttributeSet attrs) {
@@ -95,6 +104,7 @@ public class VideoPlayerRecyclerView extends RecyclerView {
     private void init(Context context){
 
         this.context = context.getApplicationContext();
+        sharedPreferences = context.getSharedPreferences("video_player_prefs", Context.MODE_PRIVATE);
         Display display = ((WindowManager)getContext().getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
         Point point = new Point();
         display.getSize(point);
@@ -114,6 +124,7 @@ public class VideoPlayerRecyclerView extends RecyclerView {
         videoSurfaceView.setUseController(false);
         videoSurfaceView.setPlayer(videoPlayer);
         setVolumeControl(VolumeState.ON);
+
 
         addOnScrollListener(new RecyclerView.OnScrollListener(){
             @Override
@@ -316,6 +327,8 @@ public class VideoPlayerRecyclerView extends RecyclerView {
             videoPlayer.setPlayWhenReady(true);
         }
         //////////////////////////////////////////////////////
+        sharedPreferences.edit().putInt(PREF_LAST_PLAYED_POSITION, playPosition).apply();
+
 
     }
     private OnClickListener videoViewClickListener = new OnClickListener() {
@@ -421,4 +434,6 @@ public class VideoPlayerRecyclerView extends RecyclerView {
     public void setMediaObjects(ArrayList<MediaObject> mediaObjects){
         this.mediaObjects = mediaObjects;
     }
+
+
 }

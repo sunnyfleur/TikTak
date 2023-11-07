@@ -28,51 +28,59 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        editTextEmail=findViewById(R.id.email);
-        editTextPassword=findViewById(R.id.password);
-        signIn=findViewById(R.id.sign_in);
-        signUp=findViewById(R.id.sign_up);
+        if(firebaseAuthentication.getCurrentUser()!=null){
+            Intent intent=new Intent(RegisterActivity.this,HomeActivity.class);
+            startActivity(intent);
+            finish();
+        }
+        else {
+            editTextEmail=findViewById(R.id.email);
+            editTextPassword=findViewById(R.id.password);
+            signIn=findViewById(R.id.sign_in);
+            signUp=findViewById(R.id.sign_up);
 
-        signIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(RegisterActivity.this,LoginActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
-
-        signUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String email, password;
-                email=String.valueOf(editTextEmail.getText());
-                password=String.valueOf(editTextPassword.getText());
-
-                if(TextUtils.isEmpty(email)){
-                    Toast.makeText(RegisterActivity.this, "Enter email", Toast.LENGTH_SHORT).show();
-                    return;
+            signIn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent=new Intent(RegisterActivity.this,LoginActivity.class);
+                    startActivity(intent);
+                    finish();
                 }
-                if(TextUtils.isEmpty(password)){
-                    Toast.makeText(RegisterActivity.this, "Enter password", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                firebaseAuthentication.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
-                            Toast.makeText(RegisterActivity.this, "Registration successfully!", Toast.LENGTH_SHORT).show();
-                            Intent intent=new Intent(RegisterActivity.this,LoginActivity.class);
-                            startActivity(intent);
-                            finish();
-                            
-                        }
-                        else {
-                            Toast.makeText(RegisterActivity.this, "Registration failed", Toast.LENGTH_SHORT).show();
-                        }
+            });
+            signUp.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String email, password;
+                    email=String.valueOf(editTextEmail.getText());
+                    password=String.valueOf(editTextPassword.getText());
+
+                    if(TextUtils.isEmpty(email)){
+                        Toast.makeText(RegisterActivity.this, "Enter email", Toast.LENGTH_SHORT).show();
+                        return;
                     }
-                });
-            }
-        });
+                    if(TextUtils.isEmpty(password)){
+                        Toast.makeText(RegisterActivity.this, "Enter password", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    firebaseAuthentication.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if(task.isSuccessful()){
+                                Toast.makeText(RegisterActivity.this, "Registration successfully!", Toast.LENGTH_SHORT).show();
+                                Intent intent=new Intent(RegisterActivity.this,LoginActivity.class);
+                                startActivity(intent);
+                                finish();
+
+                            }
+                            else {
+                                Toast.makeText(RegisterActivity.this, "Registration failed", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                }
+            });
+        }
+
+
     }
 }
