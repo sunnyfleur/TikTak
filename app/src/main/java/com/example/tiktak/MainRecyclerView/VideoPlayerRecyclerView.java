@@ -67,7 +67,8 @@ public class VideoPlayerRecyclerView extends RecyclerView {
     private FrameLayout frameLayout;
     private PlayerView videoSurfaceView;
     private SimpleExoPlayer videoPlayer;
-    TextView musicName, description, username;
+    private TextView musicName, description, username;
+    private String itemLink;
 
     //////Vars
     private ArrayList<MediaObject> mediaObjects = new ArrayList<>();
@@ -310,6 +311,7 @@ public class VideoPlayerRecyclerView extends RecyclerView {
 
         DataSource.Factory dataSourceFactory = new DefaultDataSourceFactory(context, Util.getUserAgent(context," RecyclerView VideoPlayer"));
         String mediaUrl = mediaObjects.get(targetPosition).getMedia_url();
+
         if (mediaUrl != null){
             MediaSource videoSource = new ProgressiveMediaSource.Factory(dataSourceFactory).createMediaSource(Uri.parse(mediaUrl));
             videoPlayer.prepare(videoSource);

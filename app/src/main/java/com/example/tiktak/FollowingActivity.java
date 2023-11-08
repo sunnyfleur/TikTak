@@ -25,17 +25,12 @@ import com.example.tiktak.MainRecyclerView.VideoPlayerRecyclerAdapter;
 import com.example.tiktak.MainRecyclerView.VideoPlayerRecyclerView;
 import com.example.tiktak.Models.MediaData;
 import com.example.tiktak.Models.MediaObject;
-import com.example.tiktak.Responses.ApiClient;
-import com.example.tiktak.Responses.ApiInterface;
-import com.example.tiktak.Responses.Users;
+
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class FollowingActivity extends AppCompatActivity {
 
