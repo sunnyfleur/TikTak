@@ -39,7 +39,8 @@ import retrofit2.Response;
 
 public class HomeActivity extends AppCompatActivity {
 
-    private ArrayList<MediaObject> mediaObjectList = new ArrayList<>();
+
+    private  ArrayList<MediaObject> mediaObjectList = new ArrayList<>();
     private VideoPlayerRecyclerView recyclerView;
     public static ApiInterface apiInterface;
 
@@ -86,7 +87,9 @@ public class HomeActivity extends AppCompatActivity {
 
 
     private void LoadAdapter(){
-        mediaObjectList =  MediaData.generateMediaData();
+
+//        mediaObjectList =  MediaData.generateMediaData();
+        mediaObjectList =  MediaData.mediaObjects;
         recyclerView.setMediaObjects(mediaObjectList);
 
         VideoPlayerRecyclerAdapter adapter = new VideoPlayerRecyclerAdapter(mediaObjectList,getApplicationContext(),initGlide());
@@ -94,6 +97,7 @@ public class HomeActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
         recyclerView.setKeepScreenOn(true);
         recyclerView.smoothScrollToPosition(mediaObjectList.size()+1);
+
     }
     private void LoadAllPosts() {
         Call<Users> call = apiInterface.performAllPosts();

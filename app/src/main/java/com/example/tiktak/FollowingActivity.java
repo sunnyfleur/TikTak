@@ -82,14 +82,15 @@ public class FollowingActivity extends AppCompatActivity {
 
     }
     private void LoadAdapter(){
-        mediaObjectList =  MediaData.generateMediaData();
-        recyclerView.setMediaObjects(mediaObjectList);
-
+        mediaObjectList =  MediaData.mediaObjects;
         VideoPlayerRecyclerAdapter adapter = new VideoPlayerRecyclerAdapter(mediaObjectList,getApplicationContext(),initGlide());
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
         recyclerView.setKeepScreenOn(true);
         recyclerView.smoothScrollToPosition(mediaObjectList.size()+1);
+        recyclerView.setMediaObjects(mediaObjectList);
+
+
     }
 
 
