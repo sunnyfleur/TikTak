@@ -83,7 +83,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
         }
     }
     private String getVideoUrlByImageUrl(ArrayList<MediaObject>mediaObjects, String imageUrl) {
-        mediaObjects = MediaData.generateMediaData();
+        mediaObjects = MediaData.mediaObjects;
         for (MediaObject media : mediaObjects) {
             if (media.getThumbnail().equals(imageUrl)) {
                 return media.getMedia_url();
