@@ -144,4 +144,11 @@ public class HomeActivity extends AppCompatActivity {
         Animatoo.animateSlideLeft(this);
         finish();
     }
+    public void resetHome(View view){
+        Intent intent = new Intent(HomeActivity.this, HomeActivity.class);
+        startActivity(intent);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        Animatoo.animateShrink(this);
+        finish();
+    }
 }

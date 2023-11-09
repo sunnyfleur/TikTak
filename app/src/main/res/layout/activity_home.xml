@@ -29,6 +29,7 @@
         app:srcCompat="@drawable/add_button" />
 
     <ImageView
+        android:onClick="resetHome"
         android:id="@+id/home"
         android:layout_width="42dp"
         android:layout_height="42dp"

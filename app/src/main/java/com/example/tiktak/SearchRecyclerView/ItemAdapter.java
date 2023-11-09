@@ -15,13 +15,17 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.tiktak.HomeActivity;
+import com.example.tiktak.Models.MediaData;
+import com.example.tiktak.Models.MediaObject;
 import com.example.tiktak.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder> {
     private List<Item> itemList;
     private Context context;
+    private ArrayList<MediaObject> mediaObjects;
 
     public ItemAdapter(List<Item> itemList,Context context) {
 
@@ -53,9 +57,10 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
             @Override
             public void onClick(View v) {
                 int position = holder.getAdapterPosition();
-                String itemLink = itemList.get(position).getItemLink();
+                String mediaUrl = getVideoUrlByImageUrl(mediaObjects,itemList.get(position).getItemLink());
+
                 Intent intent = new Intent(v.getContext(), HomeActivity.class);
-                intent.putExtra("itemLink",itemLink);
+                intent.putExtra("mediaUrl",mediaUrl);
                 v.getContext().startActivity(intent);
             }
         });
@@ -77,5 +82,13 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
             itemImageView = itemView.findViewById(R.id.itemImg);
         }
     }
-
+    private String getVideoUrlByImageUrl(ArrayList<MediaObject>mediaObjects, String imageUrl) {
+        mediaObjects = MediaData.generateMediaData();
+        for (MediaObject media : mediaObjects) {
+            if (media.getThumbnail().equals(imageUrl)) {
+                return media.getMedia_url();
+            }
+        }
+        return null;
+    }
 }

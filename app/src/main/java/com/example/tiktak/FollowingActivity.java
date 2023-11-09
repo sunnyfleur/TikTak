@@ -132,4 +132,32 @@ public class FollowingActivity extends AppCompatActivity {
         Animatoo.animateSwipeLeft(this);
         finish();
     }
+    public void searchBtn(View view){
+        Intent intent = new Intent(FollowingActivity.this,SearchActivity.class);
+        startActivity(intent);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        Animatoo.animateSlideUp(this);
+        finish();
+    }
+    public void profileBtn(View view){
+        Intent intent = new Intent(FollowingActivity.this,ProfileActivity.class);
+        startActivity(intent);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        Animatoo.animateSlideUp(this);
+        finish();
+    }
+    public void userBtn(View view){
+        Intent intent = new Intent(FollowingActivity.this,UserActivity.class);
+        startActivity(intent);
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        Animatoo.animateSlideLeft(this);
+        finish();
+    }
+    public void resetHome(View view){
+        Intent intent = new Intent(FollowingActivity.this, HomeActivity.class);
+        startActivity(intent);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        Animatoo.animateShrink(this);
+        finish();
+    }
 }
