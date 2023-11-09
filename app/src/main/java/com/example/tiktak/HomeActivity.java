@@ -108,9 +108,12 @@ public class HomeActivity extends AppCompatActivity {
         super.onStop();
         if (recyclerView!=null){
             recyclerView.releasePlayer();
+            recyclerView.saveVideoPlayerState();
         }
         finish();
     }
+
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();

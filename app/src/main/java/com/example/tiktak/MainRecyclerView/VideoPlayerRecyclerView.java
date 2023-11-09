@@ -429,4 +429,30 @@ public class VideoPlayerRecyclerView extends RecyclerView {
     public void setMediaObjects(ArrayList<MediaObject> mediaObjects){
         this.mediaObjects = mediaObjects;
     }
+
+    public void saveVideoPlayerState() {
+        if (videoPlayer != null) {
+            boolean isPlaying = videoPlayer.getPlayWhenReady();
+            long currentWindow = videoPlayer.getCurrentWindowIndex();
+            long playbackPosition = Math.max(0, videoPlayer.getContentPosition());
+
+            SharedPreferences sharedPreferences = context.getSharedPreferences("video_player_state", MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean("isPlaying", isPlaying);
+            editor.putLong("currentWindow", currentWindow);
+            editor.putLong("playbackPosition", playbackPosition);
+            editor.apply();
+        }
+    }
+    public void restoreVideoPlayerState() {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("video_player_state", MODE_PRIVATE);
+        boolean isPlaying = sharedPreferences.getBoolean("isPlaying", false);
+        long currentWindow = sharedPreferences.getLong("currentWindow", 0);
+        long playbackPosition = sharedPreferences.getLong("playbackPosition", 0);
+
+        if (videoPlayer != null) {
+            videoPlayer.setPlayWhenReady(isPlaying);
+            videoPlayer.seekTo((int)currentWindow, playbackPosition);
+        }
+    }
 }
