@@ -25,17 +25,12 @@ import com.example.tiktak.MainRecyclerView.VideoPlayerRecyclerAdapter;
 import com.example.tiktak.MainRecyclerView.VideoPlayerRecyclerView;
 import com.example.tiktak.Models.MediaData;
 import com.example.tiktak.Models.MediaObject;
-import com.example.tiktak.Responses.ApiClient;
-import com.example.tiktak.Responses.ApiInterface;
-import com.example.tiktak.Responses.Users;
+
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class FollowingActivity extends AppCompatActivity {
 
@@ -135,6 +130,34 @@ public class FollowingActivity extends AppCompatActivity {
         startActivity(intent);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         Animatoo.animateSwipeLeft(this);
+        finish();
+    }
+    public void searchBtn(View view){
+        Intent intent = new Intent(FollowingActivity.this,SearchActivity.class);
+        startActivity(intent);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        Animatoo.animateSlideUp(this);
+        finish();
+    }
+    public void profileBtn(View view){
+        Intent intent = new Intent(FollowingActivity.this,ProfileActivity.class);
+        startActivity(intent);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        Animatoo.animateSlideUp(this);
+        finish();
+    }
+    public void userBtn(View view){
+        Intent intent = new Intent(FollowingActivity.this,UserActivity.class);
+        startActivity(intent);
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        Animatoo.animateSlideLeft(this);
+        finish();
+    }
+    public void resetHome(View view){
+        Intent intent = new Intent(FollowingActivity.this, HomeActivity.class);
+        startActivity(intent);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        Animatoo.animateShrink(this);
         finish();
     }
 }

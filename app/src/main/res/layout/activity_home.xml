@@ -29,6 +29,7 @@
         app:srcCompat="@drawable/add_button" />
 
     <ImageView
+        android:onClick="resetHome"
         android:id="@+id/home"
         android:layout_width="42dp"
         android:layout_height="42dp"
@@ -39,6 +40,7 @@
         app:srcCompat="@drawable/home" />
 
     <ImageView
+        android:onClick="searchBtn"
         android:id="@+id/search"
         android:layout_width="42dp"
         android:layout_height="42dp"
@@ -49,6 +51,7 @@
         app:srcCompat="@drawable/search" />
 
     <ImageView
+        android:onClick="profileBtn"
         android:id="@+id/profile"
         android:layout_width="36dp"
         android:layout_height="36dp"

@@ -25,30 +25,20 @@ import com.example.tiktak.MainRecyclerView.VideoPlayerRecyclerAdapter;
 import com.example.tiktak.MainRecyclerView.VideoPlayerRecyclerView;
 import com.example.tiktak.Models.MediaData;
 import com.example.tiktak.Models.MediaObject;
-import com.example.tiktak.Responses.ApiClient;
-import com.example.tiktak.Responses.ApiInterface;
-import com.example.tiktak.Responses.Users;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
 public class HomeActivity extends AppCompatActivity {
 
     private ArrayList<MediaObject> mediaObjectList = new ArrayList<>();
     private VideoPlayerRecyclerView recyclerView;
-    public static ApiInterface apiInterface;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
-        apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
         init();
     }
     private void init(){
@@ -86,37 +76,11 @@ public class HomeActivity extends AppCompatActivity {
         mediaObjectList =  MediaData.mediaObjects;
         recyclerView.setMediaObjects(mediaObjectList);
 
-        VideoPlayerRecyclerAdapter adapter = new VideoPlayerRecyclerAdapter(mediaObjectList,getApplicationContext(),initGlide());
+        VideoPlayerRecyclerAdapter adapter = new VideoPlayerRecyclerAdapter(mediaObjectList,HomeActivity.this,initGlide());
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
         recyclerView.setKeepScreenOn(true);
         recyclerView.smoothScrollToPosition(mediaObjectList.size()+1);
-    }
-    private void LoadAllPosts() {
-        Call<Users> call = apiInterface.performAllPosts();
-        call.enqueue(new Callback<Users>() {
-            @Override
-            public void onResponse(Call<Users> call, Response<Users> response) {
-                if (response.isSuccessful()){
-                    mediaObjectList = (ArrayList<MediaObject>) response.body().getAllPosts();
-
-                    recyclerView.setMediaObjects(mediaObjectList);
-                    VideoPlayerRecyclerAdapter adapter = new VideoPlayerRecyclerAdapter(mediaObjectList,getApplicationContext(),initGlide());
-                    recyclerView.setAdapter(adapter);
-                    adapter.notifyDataSetChanged();
-                    recyclerView.setKeepScreenOn(true);
-                    recyclerView.smoothScrollToPosition(mediaObjectList.size()+1);
-                }
-                else {
-                    Toast.makeText(HomeActivity.this,"Network Error.",Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Users> call, Throwable t) {
-                Toast.makeText(HomeActivity.this,"Network Error.", Toast.LENGTH_SHORT).show();
-            }
-        });
     }
     public  static void setWindowFlag(@NotNull Activity activity, final int bits, boolean on){
         Window win = activity.getWindow();
@@ -157,6 +121,34 @@ public class HomeActivity extends AppCompatActivity {
         startActivity(intent);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         Animatoo.animateSwipeRight(this);
+        finish();
+    }
+    public void searchBtn(View view){
+        Intent intent = new Intent(HomeActivity.this,SearchActivity.class);
+        startActivity(intent);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        Animatoo.animateSlideUp(this);
+        finish();
+    }
+    public void profileBtn(View view){
+        Intent intent = new Intent(HomeActivity.this,ProfileActivity.class);
+        startActivity(intent);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        Animatoo.animateSlideUp(this);
+        finish();
+    }
+    public void userBtn(View view){
+        Intent intent = new Intent(HomeActivity.this,UserActivity.class);
+        startActivity(intent);
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        Animatoo.animateSlideLeft(this);
+        finish();
+    }
+    public void resetHome(View view){
+        Intent intent = new Intent(HomeActivity.this, HomeActivity.class);
+        startActivity(intent);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        Animatoo.animateShrink(this);
         finish();
     }
 }
