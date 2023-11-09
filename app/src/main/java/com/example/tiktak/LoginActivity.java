@@ -30,52 +30,59 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        editTextEmail=findViewById(R.id.email);
-        editTextPassword=findViewById(R.id.password);
-        signIn=findViewById(R.id.sign_in);
-        signUp=findViewById(R.id.sign_up);
-
-        signUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(LoginActivity.this,RegisterActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
-
-        signIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String email, password;
-                email=String.valueOf(editTextEmail.getText());
-                password=String.valueOf(editTextPassword.getText());
-
-                if(TextUtils.isEmpty(email)){
-                    Toast.makeText(LoginActivity.this, "Enter email", Toast.LENGTH_SHORT).show();
-                    return;
+        if(firebaseAuthentication.getCurrentUser()!=null){
+            Intent intent=new Intent(LoginActivity.this,HomeActivity.class);
+            startActivity(intent);
+            finish();
+        }
+        else {
+            editTextEmail=findViewById(R.id.email);
+            editTextPassword=findViewById(R.id.password);
+            signIn=findViewById(R.id.sign_in);
+            signUp=findViewById(R.id.sign_up);
+            signUp.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent=new Intent(LoginActivity.this,RegisterActivity.class);
+                    startActivity(intent);
+                    finish();
                 }
-                if(TextUtils.isEmpty(password)){
-                    Toast.makeText(LoginActivity.this, "Enter password", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+            });
 
-                firebaseAuthentication.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
-                            Toast.makeText(LoginActivity.this, "Login successfully!", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(LoginActivity.this,HomeActivity.class);
-                            startActivity(intent);
-                            finish();
-                        }
-                        else {
-                            Toast.makeText(LoginActivity.this, "Authentication false", Toast.LENGTH_SHORT).show();
-                        }
+            signIn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String email, password;
+                    email=String.valueOf(editTextEmail.getText());
+                    password=String.valueOf(editTextPassword.getText());
 
+                    if(TextUtils.isEmpty(email)){
+                        Toast.makeText(LoginActivity.this, "Enter email", Toast.LENGTH_SHORT).show();
+                        return;
                     }
-                });
-            }
-        });
+                    if(TextUtils.isEmpty(password)){
+                        Toast.makeText(LoginActivity.this, "Enter password", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    firebaseAuthentication.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if(task.isSuccessful()){
+                                Toast.makeText(LoginActivity.this, "Login successfully!", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(LoginActivity.this,HomeActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }
+                            else {
+                                Toast.makeText(LoginActivity.this, "Authentication false", Toast.LENGTH_SHORT).show();
+                            }
+
+                        }
+                    });
+                }
+            });
+        }
+
     }
 }
