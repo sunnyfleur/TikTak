@@ -28,7 +28,12 @@ import android.provider.MediaStore;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
+
+import com.example.tiktak.Models.MediaObject;
 import com.google.common.util.concurrent.ListenableFuture;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -50,6 +55,9 @@ public class CameraActivity extends AppCompatActivity {
     VideoCapture<Recorder> videoCapture=null;
     int cameraFacing= CameraSelector.LENS_FACING_BACK;
     private StorageReference storageReference;
+    private FirebaseFirestore firebaseFirestore;
+    private FirebaseAuth auth;
+    private FirebaseUser user;
     private final ActivityResultLauncher<String> activityResultLauncher= registerForActivityResult(new ActivityResultContracts.RequestPermission(), new ActivityResultCallback<Boolean>() {
         @Override
         public void onActivityResult(Boolean o) {
@@ -65,6 +73,10 @@ public class CameraActivity extends AppCompatActivity {
         setContentView(R.layout.activity_camera);
 
         storageReference = FirebaseStorage.getInstance().getReference();
+        firebaseFirestore=FirebaseFirestore.getInstance();
+        auth=FirebaseAuth.getInstance();
+        user= auth.getCurrentUser();
+
 
         previewView = findViewById(R.id.preview);
         capture = findViewById(R.id.capture);
@@ -131,7 +143,24 @@ public class CameraActivity extends AppCompatActivity {
                     String msg = "Video capture succeeded: " + ((VideoRecordEvent.Finalize) videoRecordEvent).getOutputResults().getOutputUri();
                     Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
                     Uri videoUri = ((VideoRecordEvent.Finalize) videoRecordEvent).getOutputResults().getOutputUri();
+
                     uploadVideoToFirebase(videoUri);
+
+                    MediaObject mediaObject = new MediaObject(
+                            "Title",
+                            "Description",
+                            "Date",
+                            "User ID",
+                            "Post Categories",
+                            "Post ID",
+                            "View",
+                            user.getEmail().toString(),
+                            videoUri.toString(),
+                            "Thumbnail"
+                    );
+                    firebaseFirestore.collection("media_objects")
+                            .add(mediaObject);
+
                 } else {
                     recording.close();
                     recording = null;
