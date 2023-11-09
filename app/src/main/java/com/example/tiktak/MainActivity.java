@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.WindowManager;
 
+import com.example.tiktak.Models.MediaData;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -16,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
 
         //hide status bar//
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        MediaData.LoadData();
 
         new Handler().postDelayed(new Runnable() {
             @Override

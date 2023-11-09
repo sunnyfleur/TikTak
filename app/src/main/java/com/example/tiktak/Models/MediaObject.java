@@ -1,10 +1,31 @@
 package com.example.tiktak.Models;
 
-import java.util.ArrayList;
+import com.google.firebase.firestore.PropertyName;
 
 public class MediaObject {
 
-    private String title, description, date, user_id, post_categories,post_id,view,user_name,media_url,thumbnail;
+    @PropertyName("title")
+    private String title;
+    @PropertyName("description")
+    private String description;
+    @PropertyName("date")
+    private String date;
+    @PropertyName("user_id")
+    private String user_id;
+    @PropertyName("post_categories")
+    private String post_categories;
+    @PropertyName("post_id")
+    private String post_id;
+    @PropertyName("view")
+    private String view;
+    @PropertyName("user_name")
+    private String user_name;
+    @PropertyName("media_url")
+    private String media_url;
+    @PropertyName("thumbnail")
+    private String thumbnail;
+
+    public MediaObject(){}
     public MediaObject(String title, String description, String date, String userId, String postCategories, String postId, String view, String userName, String mediaUrl, String thumbnail){
         this.title = title;
         this.description = description;

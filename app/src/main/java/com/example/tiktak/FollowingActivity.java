@@ -82,7 +82,7 @@ public class FollowingActivity extends AppCompatActivity {
 
     }
     private void LoadAdapter(){
-        mediaObjectList =  MediaData.generateMediaData();
+        mediaObjectList =  MediaData.mediaObjects;
         recyclerView.setMediaObjects(mediaObjectList);
 
         VideoPlayerRecyclerAdapter adapter = new VideoPlayerRecyclerAdapter(mediaObjectList,getApplicationContext(),initGlide());
