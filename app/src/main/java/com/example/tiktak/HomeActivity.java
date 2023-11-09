@@ -140,6 +140,7 @@ public class HomeActivity extends AppCompatActivity {
         Animatoo.animateSlideUp(this);
         finish();
     }
+
     public void userBtn(View view){
         Intent intent = new Intent(HomeActivity.this,UserActivity.class);
         startActivity(intent);
@@ -152,6 +153,12 @@ public class HomeActivity extends AppCompatActivity {
         startActivity(intent);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         Animatoo.animateShrink(this);
+        finish();
+    }
+    public void cameraButton(View view){
+        Intent intent = new Intent(HomeActivity.this, CameraActivity.class);
+        startActivity(intent);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         finish();
     }
 }
