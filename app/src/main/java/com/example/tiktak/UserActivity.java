@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 
@@ -33,7 +34,7 @@ public class UserActivity extends AppCompatActivity {
         follow_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                followBtn(v);
+                followedBtn(v);
             }
         });
         followed_btn.setOnClickListener(new View.OnClickListener() {
@@ -55,21 +56,12 @@ public class UserActivity extends AppCompatActivity {
             follow_btn.setVisibility(View.GONE);
             followed_btn.setVisibility(View.VISIBLE);
             isFollow = true;
+            Toast.makeText(UserActivity.this,"Followed",Toast.LENGTH_SHORT).show();
         }else {
             follow_btn.setVisibility(View.VISIBLE);
             followed_btn.setVisibility(View.GONE);
             isFollow = false;
-        }
-    }
-    private void followBtn(View view){
-        if (!isFollow){
-            followed_btn.setVisibility(View.VISIBLE);
-            follow_btn.setVisibility(View.GONE);
-            isFollow = true;
-        }else {
-            followed_btn.setVisibility(View.GONE);
-            follow_btn.setVisibility(View.VISIBLE);
-            isFollow = false;
+            Toast.makeText(UserActivity.this,"Unfollowed",Toast.LENGTH_SHORT).show();
         }
     }
 }
