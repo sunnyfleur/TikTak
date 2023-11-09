@@ -53,6 +53,22 @@ public class VideoPlayerViewHolder extends RecyclerView.ViewHolder {
     public void onBind(MediaObject mediaObject,RequestManager requestManager){
         this.requestManager = requestManager;
         parent.setTag(this);
+
+        isLike = getLikeStatus();
+        isFollow = getFollowStatus();
+
+        if (isLike) {
+            likeBtn.setImageResource(R.drawable.favo);
+        } else {
+            likeBtn.setImageResource(R.drawable.like_icon);
+        }
+
+        if (isFollow) {
+            followBtn.setVisibility(View.GONE);
+        } else {
+            followBtn.setImageResource(R.drawable.add_icon);
+        }
+
         description.setText(mediaObject.getDescription()+",\n"+mediaObject.getDate());
         user_name.setText(mediaObject.getUser_name());
         music_name.setText(mediaObject.getPost_categories());
@@ -67,6 +83,7 @@ public class VideoPlayerViewHolder extends RecyclerView.ViewHolder {
                     likeBtn.setImageResource(R.drawable.like_icon);
                     isLike = false;
                 }
+                saveLikeStatus(isLike);
             }
         });
         followBtn.setOnClickListener(new View.OnClickListener() {
@@ -86,8 +103,30 @@ public class VideoPlayerViewHolder extends RecyclerView.ViewHolder {
                     followBtn.setImageResource(R.drawable.add_icon);
                     isFollow = false;
                 }
+                saveFollowStatus(isFollow);
             }
         });
         this.requestManager.load(mediaObject.getThumbnail()).into(thumbnail);
+    }
+    private void saveLikeStatus(boolean isLike) {
+        SharedPreferences sharedPreferences = parent.getContext().getSharedPreferences("MyPreferences", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("isLike", isLike);
+        editor.apply();
+    }
+    private void saveFollowStatus(boolean isFollow) {
+        SharedPreferences sharedPreferences = parent.getContext().getSharedPreferences("MyPreferences", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("isFollow", isFollow);
+        editor.apply();
+    }
+    private boolean getLikeStatus() {
+        SharedPreferences sharedPreferences = parent.getContext().getSharedPreferences("MyPreferences", MODE_PRIVATE);
+        return sharedPreferences.getBoolean("isLike", false);
+    }
+
+    private boolean getFollowStatus() {
+        SharedPreferences sharedPreferences = parent.getContext().getSharedPreferences("MyPreferences", MODE_PRIVATE);
+        return sharedPreferences.getBoolean("isFollow", false);
     }
 }
