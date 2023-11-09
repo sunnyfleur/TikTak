@@ -76,7 +76,7 @@ public class HomeActivity extends AppCompatActivity {
         mediaObjectList =  MediaData.generateMediaData();
         recyclerView.setMediaObjects(mediaObjectList);
 
-        VideoPlayerRecyclerAdapter adapter = new VideoPlayerRecyclerAdapter(mediaObjectList,getApplicationContext(),initGlide());
+        VideoPlayerRecyclerAdapter adapter = new VideoPlayerRecyclerAdapter(mediaObjectList,HomeActivity.this,initGlide());
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
         recyclerView.setKeepScreenOn(true);
@@ -140,7 +140,7 @@ public class HomeActivity extends AppCompatActivity {
     public void userBtn(View view){
         Intent intent = new Intent(HomeActivity.this,UserActivity.class);
         startActivity(intent);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         Animatoo.animateSlideLeft(this);
         finish();
     }

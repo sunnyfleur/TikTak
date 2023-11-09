@@ -1,6 +1,10 @@
 package com.example.tiktak.MainRecyclerView;
 
+import static android.content.Context.MODE_PRIVATE;
+
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
@@ -33,6 +37,7 @@ public class VideoPlayerViewHolder extends RecyclerView.ViewHolder {
     public VideoPlayerViewHolder(@NonNull View itemView) {
         super(itemView);
 
+
         parent = itemView;
         media_container = itemView.findViewById(R.id.media_container);
         thumbnail = itemView.findViewById(R.id.thumbnail);
@@ -51,6 +56,7 @@ public class VideoPlayerViewHolder extends RecyclerView.ViewHolder {
         description.setText(mediaObject.getDescription()+",\n"+mediaObject.getDate());
         user_name.setText(mediaObject.getUser_name());
         music_name.setText(mediaObject.getPost_categories());
+
         likeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

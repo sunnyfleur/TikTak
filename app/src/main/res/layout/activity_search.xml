@@ -33,7 +33,7 @@
             app:queryHint="Search Here ......" />
 
         <ImageView
-            android:onClick="backBtn"
+            android:onClick="backFromSearch"
             android:id="@+id/backArrow"
             android:layout_width="30dp"
             android:layout_height="30dp"

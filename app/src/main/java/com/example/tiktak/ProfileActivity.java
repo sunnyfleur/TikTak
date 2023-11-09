@@ -77,7 +77,7 @@ public class ProfileActivity extends AppCompatActivity {
         menu.setImageResource(R.drawable.menu);
         isShowMenu = false;
     }
-    public void backBtn(View view){
+    public void backFromProfile(View view){
         Intent intent = new Intent(ProfileActivity.this,HomeActivity.class);
         startActivity(intent);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

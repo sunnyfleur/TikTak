@@ -1,6 +1,9 @@
 package com.example.tiktak.MainRecyclerView;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -29,7 +32,7 @@ public class VideoPlayerRecyclerAdapter extends RecyclerView.Adapter<RecyclerVie
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         return new com.example.tiktak.MainRecyclerView.VideoPlayerViewHolder(
-                LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.layout_main,viewGroup,false)
+                LayoutInflater.from(context).inflate(R.layout.layout_main,viewGroup,false)
         );
     }
 
@@ -42,4 +45,5 @@ public class VideoPlayerRecyclerAdapter extends RecyclerView.Adapter<RecyclerVie
     public int getItemCount() {
         return mediaObjects.size();
     }
+
 }

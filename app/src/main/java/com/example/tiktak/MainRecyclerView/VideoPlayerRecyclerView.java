@@ -1,6 +1,9 @@
 package com.example.tiktak.MainRecyclerView;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.net.Uri;
 import android.se.omapi.Session;
@@ -313,6 +316,9 @@ public class VideoPlayerRecyclerView extends RecyclerView {
         String mediaUrl = mediaObjects.get(targetPosition).getMedia_url();
 
         if (mediaUrl != null){
+            SharedPreferences sharedPreferences = context.getSharedPreferences("user_name", MODE_PRIVATE);
+            sharedPreferences.edit().putString("username", mediaObjects.get(targetPosition).getUser_name()).apply();
+
             MediaSource videoSource = new ProgressiveMediaSource.Factory(dataSourceFactory).createMediaSource(Uri.parse(mediaUrl));
             videoPlayer.prepare(videoSource);
             videoPlayer.setPlayWhenReady(true);
