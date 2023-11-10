@@ -88,7 +88,7 @@ public class MediaObject {
 
 
     public String getThumbnail() {
-        return thumbnail;
+        return this.thumbnail;
     }
 
 }

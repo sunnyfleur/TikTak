@@ -29,7 +29,7 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         if(firebaseAuthentication.getCurrentUser()!=null){
-            Intent intent=new Intent(RegisterActivity.this,HomeActivity.class);
+            Intent intent=new Intent(RegisterActivity.this,LoginActivity.class);
             startActivity(intent);
             finish();
         }

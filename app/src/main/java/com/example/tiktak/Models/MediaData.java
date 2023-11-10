@@ -6,6 +6,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class MediaData {
 
@@ -20,10 +21,12 @@ public class MediaData {
                         MediaObject object = documentSnapshot.toObject(MediaObject.class);
                         mediaObjects.add(object);
                     }
+                    Collections.shuffle(mediaObjects);
                 })
                 .addOnFailureListener(e -> {
                     Log.e("LoadData", "Error getting data: " + e.getMessage());
                 });
+
     }
 
 }

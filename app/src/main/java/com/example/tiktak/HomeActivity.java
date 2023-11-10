@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.SnapHelper;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -149,6 +150,7 @@ public class HomeActivity extends AppCompatActivity {
         finish();
     }
     public void resetHome(View view){
+        MediaData.LoadData();
         Intent intent = new Intent(HomeActivity.this, HomeActivity.class);
         startActivity(intent);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

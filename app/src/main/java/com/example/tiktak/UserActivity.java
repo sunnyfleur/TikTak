@@ -26,7 +26,9 @@ public class UserActivity extends AppCompatActivity {
         follow_btn = findViewById(R.id.follow);
         message_btn = findViewById(R.id.message);
         followed_btn = findViewById(R.id.followed);
-        // Lấy text từ SharedPreferences
+
+        updateFollowButton();
+
         SharedPreferences sharedPreferences = getSharedPreferences("user_name", MODE_PRIVATE);
         String text = sharedPreferences.getString("username", "");
 
@@ -64,4 +66,20 @@ public class UserActivity extends AppCompatActivity {
             Toast.makeText(UserActivity.this,"Unfollowed",Toast.LENGTH_SHORT).show();
         }
     }
+
+    private void updateFollowButton() {
+        SharedPreferences preferences = getSharedPreferences("follow_status", MODE_PRIVATE);
+        boolean isFollowed = preferences.getBoolean("isFollow", false);
+
+        if (isFollowed) {
+            follow_btn.setVisibility(View.GONE);
+            followed_btn.setVisibility(View.VISIBLE);
+            isFollow = true;
+        } else {
+            follow_btn.setVisibility(View.VISIBLE);
+            followed_btn.setVisibility(View.GONE);
+            isFollow = false;
+        }
+    }
+
 }

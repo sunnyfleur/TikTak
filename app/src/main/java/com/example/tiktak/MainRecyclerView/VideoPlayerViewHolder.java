@@ -115,18 +115,19 @@ public class VideoPlayerViewHolder extends RecyclerView.ViewHolder {
         editor.apply();
     }
     private void saveFollowStatus(boolean isFollow) {
-        SharedPreferences sharedPreferences = parent.getContext().getSharedPreferences("MyPreferences", MODE_PRIVATE);
+        SharedPreferences sharedPreferences = parent.getContext().getSharedPreferences("follow_status", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean("isFollow", isFollow);
         editor.apply();
     }
+
     private boolean getLikeStatus() {
         SharedPreferences sharedPreferences = parent.getContext().getSharedPreferences("MyPreferences", MODE_PRIVATE);
         return sharedPreferences.getBoolean("isLike", false);
     }
 
     private boolean getFollowStatus() {
-        SharedPreferences sharedPreferences = parent.getContext().getSharedPreferences("MyPreferences", MODE_PRIVATE);
+        SharedPreferences sharedPreferences = parent.getContext().getSharedPreferences("follow_status", MODE_PRIVATE);
         return sharedPreferences.getBoolean("isFollow", false);
     }
 }
