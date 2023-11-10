@@ -1,5 +1,7 @@
 package com.example.tiktak;
 
+import static com.example.tiktak.Models.MediaData.mediaObjects;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -30,7 +32,7 @@ import java.util.List;
 
 public class SearchActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
-    private List<Item> itemList;
+    private ArrayList<MediaObject> itemList;
     private SearchView searchView;
     private ItemAdapter itemAdapter;
 
@@ -57,17 +59,20 @@ public class SearchActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.searchRecyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        itemList = ItemData.generateItemData();
 
+
+        itemList = mediaObjects;
         itemAdapter = new ItemAdapter(itemList,getApplicationContext());
         recyclerView.setAdapter(itemAdapter);
     }
 
     private void filterList(String newText) {
-        List<Item> filteredList = new ArrayList<>();
-        for (Item item : itemList){
-            if (item.getItemName().toLowerCase().contains(newText.toLowerCase())){
-                filteredList.add(item);
+        ArrayList<MediaObject> filteredList = new ArrayList<>();
+        for (MediaObject media : itemList){
+            if (media.getUser_name().toLowerCase().contains(newText.toLowerCase())
+                    || media.getTitle().toLowerCase().contains(newText.toLowerCase())
+                    || media.getPost_categories().toLowerCase().contains(newText.toLowerCase())){
+                filteredList.add(media);
             }
         }
         if (filteredList.isEmpty()){
@@ -84,4 +89,6 @@ public class SearchActivity extends AppCompatActivity {
         Animatoo.animateSlideRight(this);
         finish();
     }
+
+
 }

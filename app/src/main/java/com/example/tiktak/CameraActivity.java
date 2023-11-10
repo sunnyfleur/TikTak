@@ -20,6 +20,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import android.Manifest;
 import android.content.ContentValues;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
@@ -27,8 +28,10 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.example.tiktak.Models.MediaObject;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.firebase.auth.FirebaseAuth;
@@ -58,6 +61,8 @@ public class CameraActivity extends AppCompatActivity {
     private FirebaseFirestore firebaseFirestore;
     private FirebaseAuth auth;
     private FirebaseUser user;
+
+    private ImageView backButton;
     private final ActivityResultLauncher<String> activityResultLauncher= registerForActivityResult(new ActivityResultContracts.RequestPermission(), new ActivityResultCallback<Boolean>() {
         @Override
         public void onActivityResult(Boolean o) {
@@ -77,11 +82,12 @@ public class CameraActivity extends AppCompatActivity {
         auth=FirebaseAuth.getInstance();
         user= auth.getCurrentUser();
 
-
         previewView = findViewById(R.id.preview);
         capture = findViewById(R.id.capture);
         toggleFlash = findViewById(R.id.toggleFlash);
         flipCamera = findViewById(R.id.flipCamera);
+        backButton= findViewById(R.id.back);
+
         capture.setOnClickListener(view -> {
             if (ActivityCompat.checkSelfPermission(CameraActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
                 activityResultLauncher.launch(Manifest.permission.CAMERA);
@@ -94,12 +100,20 @@ public class CameraActivity extends AppCompatActivity {
             }
         });
 
+
+
         if (ActivityCompat.checkSelfPermission(CameraActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             activityResultLauncher.launch(Manifest.permission.CAMERA);
         } else {
             startCamera(cameraFacing);
         }
 
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigateToPreviousActivity();
+            }
+        });
         flipCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -226,10 +240,25 @@ public class CameraActivity extends AppCompatActivity {
                     Toast.makeText(CameraActivity.this, "Upload failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                 });
     }
+
+    private void navigateToPreviousActivity() {
+        Intent intent = new Intent(CameraActivity.this, HomeActivity.class);
+        startActivity(intent);
+        Animatoo.animateSlideRight(this);
+        finish();
+    }
     @Override
     protected void onDestroy() {
         super.onDestroy();
         service.shutdown();
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(CameraActivity.this, HomeActivity.class);
+        startActivity(intent);
+        Animatoo.animateSlideRight(this);
+        finish();
     }
 
 

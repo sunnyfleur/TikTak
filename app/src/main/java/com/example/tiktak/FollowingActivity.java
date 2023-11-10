@@ -43,6 +43,7 @@ public class FollowingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_following);
 
+
         init();
     }
     private void init(){
@@ -80,7 +81,7 @@ public class FollowingActivity extends AppCompatActivity {
         mediaObjectList =  MediaData.mediaObjects;
         recyclerView.setMediaObjects(mediaObjectList);
 
-        VideoPlayerRecyclerAdapter adapter = new VideoPlayerRecyclerAdapter(mediaObjectList,getApplicationContext(),initGlide());
+        VideoPlayerRecyclerAdapter adapter = new VideoPlayerRecyclerAdapter(mediaObjectList,FollowingActivity.this,initGlide());
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
         recyclerView.setKeepScreenOn(true);

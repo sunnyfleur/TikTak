@@ -23,17 +23,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder> {
-    private List<Item> itemList;
     private Context context;
     private ArrayList<MediaObject> mediaObjects;
 
-    public ItemAdapter(List<Item> itemList,Context context) {
+    public ItemAdapter(ArrayList<MediaObject> mediaObjects,Context context) {
 
-        this.itemList = itemList;
+        this.mediaObjects = mediaObjects;
         this.context = context;
     }
-    public void setFilteredList(List<Item> filteredList){
-        this.itemList = filteredList;
+    public void setFilteredList(ArrayList<MediaObject> filteredList){
+        this.mediaObjects = filteredList;
         notifyDataSetChanged();
     }
     @NonNull
@@ -45,19 +44,19 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ItemAdapter.ItemViewHolder holder, int position) {
-        Item item = itemList.get(position);
-        holder.itemNameTV.setText(item.getItemName());
-        RequestOptions requestOptions = RequestOptions.bitmapTransform(new RoundedCorners(20));
+        MediaObject mediaObject = mediaObjects.get(position);
+        holder.itemNameTV.setText(mediaObject.getUser_name());
 
+        RequestOptions requestOptions = RequestOptions.bitmapTransform(new RoundedCorners(20));
         Glide.with(context)
-                .load(item.getItemLink())
+                .load(mediaObject.getThumbnail())
                 .apply(requestOptions)
                 .into(holder.itemImageView);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int position = holder.getAdapterPosition();
-                String mediaUrl = getVideoUrlByImageUrl(mediaObjects,itemList.get(position).getItemLink());
+                String mediaUrl = mediaObjects.get(position).getMedia_url();
 
                 Intent intent = new Intent(v.getContext(), HomeActivity.class);
                 intent.putExtra("mediaUrl",mediaUrl);
@@ -68,7 +67,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
 
     @Override
     public int getItemCount() {
-        return itemList.size();
+        return mediaObjects.size();
     }
 
     public class ItemViewHolder extends RecyclerView.ViewHolder{
@@ -81,14 +80,5 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
             itemNameTV = itemView.findViewById(R.id.itemTxt);
             itemImageView = itemView.findViewById(R.id.itemImg);
         }
-    }
-    private String getVideoUrlByImageUrl(ArrayList<MediaObject>mediaObjects, String imageUrl) {
-        mediaObjects = MediaData.mediaObjects;
-        for (MediaObject media : mediaObjects) {
-            if (media.getThumbnail().equals(imageUrl)) {
-                return media.getMedia_url();
-            }
-        }
-        return null;
     }
 }
